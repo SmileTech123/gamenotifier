@@ -144,7 +144,7 @@ async function getTitle(){
     }
   }
 }
-setInterval(getTitle, 1000);
+setInterval(getTitle, 1800000);
 
 
 // catch 404 and forward to error handler
