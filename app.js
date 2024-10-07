@@ -112,9 +112,16 @@ async function getTitle(){
       let link=element.getElementsByTagName("a")[0].href
       let image = element.getElementsByTagName("img")[0].src
       let html = '<tr><td><img src="'+image+'" alt="'+titolo+'" width="100" ></td><td>'+titolo+'</td> <td><a  href="'+link+'" target="_blank">Vai alla pagina</a></td></tr>'
-      if(filterList.filter((f)=>f.toLowerCase().includes(titolo.toLowerCase())).length>0){
+      if(filter!==""){
+        console.log(filterList)
+        if(filterList.filter((f)=>titolo.toLowerCase().includes(f.toLowerCase())).length>0){
+          console.log(filterList.filter((f)=>titolo.toLowerCase().includes(f.toLowerCase())))
+          list=list+html
+        }
+      }else{
         list=list+html
       }
+    
       
       
     }
@@ -145,6 +152,7 @@ async function getTitle(){
     }
   }
 }
+getTitle()
 setInterval(getTitle, 1800000);
 
 
