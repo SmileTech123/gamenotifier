@@ -98,6 +98,7 @@ async function getTitle(){
     let jsonFile=JSON.parse(file)
     let email=jsonFile.email
     let filter = jsonFile.filter
+    let filterList = filter.split(",")
     var resp = await fetch("https://www.skidrowreloaded.com/")
     resp =await resp.text()
     const dom = new jsdom.JSDOM(resp);
@@ -111,7 +112,7 @@ async function getTitle(){
       let link=element.getElementsByTagName("a")[0].href
       let image = element.getElementsByTagName("img")[0].src
       let html = '<tr><td><img src="'+image+'" alt="'+titolo+'" width="100" ></td><td>'+titolo+'</td> <td><a  href="'+link+'" target="_blank">Vai alla pagina</a></td></tr>'
-      if(titolo.toLowerCase().includes(filter.toLowerCase())){
+      if(filterList.filter((f)=>f.toLowerCase().includes(titolo.toLowerCase())).length>0){
         list=list+html
       }
       
@@ -128,7 +129,7 @@ async function getTitle(){
       });
       let mailOptions = {
         from: 'skidrowNotifier@skidrownotifier.com', // Il mittente
-        to: 'fabiogermana01@gmail.com', // Destinatario
+        to: email, // Destinatario
         subject: filter!==""?'Notifica ultimi giochi ( FILTRI: '+filter+' )':'Notifica ultimi giochi',
         html: list+"</table>" // Corpo del messaggio
     };
