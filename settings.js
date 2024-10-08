@@ -10,6 +10,11 @@ $(document).ready(()=>{
             location.href="index.html"
         }else{
             $("#filter").val(data.data.filter)
+            if(data.data.active==="true"){
+                $("#active").prop( "checked", true );
+            }else{
+                $("#active").prop( "checked", false );
+            }
         }
 
     })
@@ -17,8 +22,9 @@ $(document).ready(()=>{
     $("#save").click(()=>{
       
         var filter = $("#filter").val()
-        console.log(filter)
-        $.get("/writeSettings?user="+userExist.split("-")[0]+"&password="+userExist.split("-")[1]+"&filter="+filter,(data)=>{
+        var active = $("#active").is(':checked')
+        console.log(active)
+        $.get("/writeSettings?user="+userExist.split("-")[0]+"&password="+userExist.split("-")[1]+"&filter="+filter+"&active="+active,(data)=>{
             if(data.error){
                 alert("Errore durante il salvataggio")
             }else{
